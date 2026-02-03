@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You 🌹</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffd1dc, #f6a6b2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Georgia', serif;
+  overflow: hidden;
+}
+
+.container {
+  width: 95%;
+  max-width: 440px;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  z-index: 2;
+}
+
+.hidden { display: none; }
+
+button {
+  padding: 10px 24px;
+  border-radius: 24px;
+  border: none;
+  font-size: 14px;
+  margin: 6px;
+  cursor: pointer;
+  background: #c9184a;
+  color: white;
+}
+
+.back {
+  background: transparent;
+  color: white;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* BOUNCY TEXT */
+.bounce {
+  animation: bounce 1.4s infinite;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* ROSE SKETCH */
+.rose-sketch {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+/* HEART MESSAGE */
+.heart-box {
+  background: rgba(255,255,255,0.95);
+  color: #7a1c2e;
+  padding: 18px;
+  border-radius: 40px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+/* ROSE MESSAGE */
+.rose-message {
+  background: rgba(255,255,255,0.9);
+  color: #7a1c2e;
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  margin: 10px 0;
+  display: none;
+}
+
+/* FINAL LETTER */
+.letter {
+  background: rgba(255,255,255,0.96);
+  color: #7a1c2e;
+  padding: 24px;
+  border-radius: 18px;
+  font-size: 15px;
+  line-height: 1.8;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+}
+
+/* PETALS */
+.petal {
+  position: fixed;
+  top: -20px;
+  font-size: 20px;
+  animation: fall linear infinite;
+  opacity: 0.85;
+  z-index: 1;
+}
+
+@keyframes fall {
+  from { transform: translateY(0); }
+  to { transform: translateY(110vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HOME -->
+<div id="home">
+  <img src="https://media.giphy.com/media/l0MYEqEzwMWFCg8rm/giphy.gif"
+       style="width:100%;border-radius:20px;margin-bottom:10px;">
+  <button onclick="showWish()">Surprise 🌸</button>
+</div>
+
+<!-- WISH -->
+<div id="wish" class="hidden">
+  <div class="rose-sketch">🌹</div>
+  <div class="bounce">Happyyy rose dayyy Loveee!! ❤️</div>
+  <button onclick="openRoses()">Open 💌</button><br>
+  <button class="back" onclick="goHome()">← Back</button>
+</div>
+
+<!-- ROSES -->
+<div id="roses" class="hidden">
+  <div class="heart-box">
+    ❤️ Some beautiful roses to describe you ❤️
+  </div>
+
+  <button onclick="showRose('red')">🌹 Red Rose</button>
+  <button onclick="showRose('pink')">🌸 Pink Rose</button>
+  <button onclick="showRose('white')">🤍 White Rose</button>
+  <button onclick="showRose('yellow')">🌼 Yellow Rose</button>
+  <button onclick="showRose('lavender')">💜 Lavender Rose</button>
+  <button onclick="showRose('peach')">🧡 Peach Rose</button>
+
+  <div id="roseText" class="rose-message"></div>
+
+  <button onclick="finalSurprise()">One last surprise 🌹</button><br>
+  <button class="back" onclick="openRoses()">← Back</button>
+</div>
+
+<!-- FINAL -->
+<div id="final" class="hidden">
+  <div class="letter">
+    Loving you feels like discovering something rare and gentle in a busy world.
+    You bring warmth where there is silence, calm where there is chaos,
+    and meaning where words often fall short.
+
+    <br><br>
+
+    Like roses, you carry strength with softness —
+    never loud, never demanding, yet deeply unforgettable.
+    Being with you reminds me that love doesn’t need perfection;
+    it only needs honesty, care, and a heart that chooses again and again.
+
+    <br><br>
+
+    If I had to describe you in one feeling,
+    it would be this —
+    a quiet happiness that stays long after the moment has passed.
+
+    <br><br>
+
+    So once again, Happyy rosee dayy
+    to myy Rose in human form..!! 🌹
+  </div>
+
+  <button class="back" onclick="openRoses()">← Back</button>
+</div>
+
+</div>
+
+<script>
+let petalInterval;
+
+function hideAll() {
+  document.querySelectorAll(".container > div")
+    .forEach(d => d.classList.add("hidden"));
+  clearInterval(petalInterval);
+}
+
+function goHome() {
+  hideAll();
+  document.getElementById("home").classList.remove("hidden");
+}
+
+function showWish() {
+  hideAll();
+  document.getElementById("wish").classList.remove("hidden");
+  startPetals();
+}
+
+function openRoses() {
+  hideAll();
+  document.getElementById("roses").classList.remove("hidden");
+}
+
+function finalSurprise() {
+  hideAll();
+  document.getElementById("final").classList.remove("hidden");
+}
+
+function showRose(type) {
+  const box = document.getElementById("roseText");
+  box.style.display = "block";
+
+  const messages = {
+    red: "🌹 Red Rose — deep, bold love. Just like the way your presence feels strong and certain.",
+    pink: "🌸 Pink Rose — gentle affection. You make everything softer just by being you.",
+    white: "🤍 White Rose — pure and sincere. Loving you feels calm, honest, and safe.",
+    yellow: "🌼 Yellow Rose — warmth and joy. Your smile brings light into my ordinary days.",
+    lavender: "💜 Lavender Rose — enchantment. There’s something magical about you.",
+    peach: "🧡 Peach Rose — gratitude. Thank you for being exactly who you are."
+  };
+
+  box.innerHTML = messages[type];
+}
+
+function startPetals() {
+  petalInterval = setInterval(() => {
+    let p = document.createElement("div");
+    p.className = "petal";
+    p.innerHTML = "🌹";
+    p.style.left = Math.random() * 100 + "%";
+    p.style.animationDuration = (4 + Math.random() * 4) + "s";
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 9000);
+  }, 350);
+}
+</script>
+
+</body>
+</html>
